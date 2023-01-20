@@ -160,6 +160,28 @@ addRacingSessionsButton.onclick = function () {
     addRacingSessions(racingEventSessions)
 };
 
+let totalSteps = 1
+let stepSize = 1
+let currentStep = 0
+let progress = 0
+
+function initializeProgressBar(stepCount) {
+    totalSteps = stepCount
+    stepSize = 100 / totalSteps
+    currentStep = 0
+    progress = 0
+}
+
+function updateProgress(steps) {
+    currentStep = currentStep + steps
+    progress = stepSize * currentStep
+    $('#uploadProgress div').css('width', progress + '%')
+    if (totalSteps === currentStep) {
+        $('#uploadProgress div').text('Upload completed')
+        $('#uploadProgress div').removeClass('progress-bar-animated')
+    }
+}
+
 function isUploadDataValid(racingEventSessions) {
     if (!racingEventSessions || racingEventSessions.length === 0) {
         $('#errorBox').text('No racing event sessions found. Cannot proceed.')
@@ -182,6 +204,7 @@ function addRacingSessions(racingEventSessions) {
 
     $('#addRacingEventSessions').prop('disabled', true)
     $('#uploadProgress').removeClass('d-none')
+    initializeProgressBar(racingEventSessions.length * 2)
 
     racingEventSessions.forEach(racingEventSession => {
         uploadRacingEventSession(racingEventSession)
@@ -208,6 +231,8 @@ function uploadRacingEventSession(racingEventSession) {
             },
             data: JSON.stringify(payloadRacingEventSession)
         }).done(function (createdRacingEventSession) { // connect racing event and session
+            updateProgress(1)
+
             const racingEventSessionId = createdRacingEventSession.data.id
             let endpoint2 = 'racing-event-sessions/' + racingEventSessionId + '/racing-events/' + racingEventId
             $.ajax({
@@ -217,6 +242,8 @@ function uploadRacingEventSession(racingEventSession) {
                     'access-token': storage.accessToken
                 }
             })
+        }).done(() => { // connect racing event and session
+            updateProgress(1)
         })
     })
 }
