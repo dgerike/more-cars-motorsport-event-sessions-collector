@@ -6,6 +6,21 @@
   "permissions": [
     "storage"
   ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.wrc.com/*",
+        "https://more-cars.net.test/api/v1/*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "host_permissions": [
+    "https://www.wrc.com/*",
+    "https://more-cars.net.test/api/v1/*"
+  ],
   "action": {
     "default_popup": "popup.html"
   },
