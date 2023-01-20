@@ -13,6 +13,7 @@ let racingSeries = [{
     }
 }]
 let apiBaseUrl = 'https://more-cars.net'
+let racingEventSessions = null
 
 renderRacingSeriesList(racingSeries)
 
@@ -149,3 +150,68 @@ saveAccessTokenBtn.onclick = function () {
     let newAccessToken = document.getElementById('accessTokenInput').value;
     chrome.storage.local.set({'accessToken': newAccessToken});
 };
+
+let addRacingSessionsButton = document.getElementById('addRacingEventSessions');
+addRacingSessionsButton.onclick = function () {
+    addRacingSessions(racingEventSessions)
+};
+
+function isUploadDataValid(racingEventSessions) {
+    if (!racingEventSessions || racingEventSessions.length === 0) {
+        $('#errorBox').text('No racing event sessions found. Cannot proceed.')
+        $('#errorBox').removeClass('d-none')
+        $('#addRacingEventSessions').prop('disabled', true)
+
+        return false
+    }
+
+    $('#errorBox').addClass('d-none') // remove error messages
+    $('#addRacingEventSessions').prop('disabled', false) // enable submit button
+
+    return true
+}
+
+function addRacingSessions(racingEventSessions) {
+    if (!isUploadDataValid(racingEventSessions)) {
+        return false
+    }
+
+    $('#addRacingEventSessions').prop('disabled', true)
+    $('#uploadProgress').removeClass('d-none')
+
+    racingEventSessions.forEach(racingEventSession => {
+        uploadRacingEventSession(racingEventSession)
+    })
+}
+
+function uploadRacingEventSession(racingEventSession) {
+    let payloadRacingEventSession = {
+        "name": racingEventSession.stage + ' - ' + racingEventSession.name,
+        "start_time": racingEventSession.time,
+    }
+
+    let racingEventId = $($('#racingEventList option:selected')[0]).val()
+
+    chrome.storage.local.get(['accessToken'], function (storage) {
+        let endpoint = 'racing-event-sessions'
+        $.ajax({ // create racing event session
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            url: apiBaseUrl + '/api/v1/' + endpoint,
+            headers: {
+                'access-token': storage.accessToken
+            },
+            data: JSON.stringify(payloadRacingEventSession)
+        }).done(function (createdRacingEventSession) { // connect racing event and session
+            const racingEventSessionId = createdRacingEventSession.data.id
+            let endpoint2 = 'racing-event-sessions/' + racingEventSessionId + '/racing-events/' + racingEventId
+            $.ajax({
+                type: 'POST',
+                url: apiBaseUrl + '/api/v1/' + endpoint2,
+                headers: {
+                    'access-token': storage.accessToken
+                }
+            })
+        })
+    })
+}
