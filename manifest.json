@@ -1,0 +1,30 @@
+{
+  "name": "More Cars - Motorsport Events Collector",
+  "version": "0.1.0",
+  "description": "A little helper that makes it easier to add motorsport events to the 'More Cars' database. (more-cars.net)",
+  "homepage_url": "https://github.com/dgerike/more-cars-motorsport-events-collector",
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.wrc.com/*",
+        "https://more-cars.net/api/v1/*"
+      ],
+      "js": [
+        "content.js",
+        "libs/jquery_v3.4.1.js",
+        "libs/moment.min.js"
+      ]
+    }
+  ],
+  "host_permissions": [
+    "https://www.wrc.com/*",
+    "https://more-cars.net/api/v1/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "manifest_version": 3
+}
