@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body style="width:700px">
+<div class="m-3">
+    <div class="card mb-3">
+        <div class="card-header">
+            1. Select Racing Series
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="racingSeriesList">Select Racing Series</label>
+                <select class="form-control" id="racingSeriesList">
+                    <option selected disabled>--- Select Racing Series ---</option>
+                    <!-- dynamically filled -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="racingEventList">Select Racing Event</label>
+                <select class="form-control" id="racingEventList">
+                    <!-- dynamically filled -->
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            2. Check the extracted data
+        </div>
+        <div class="card-body">
+            <div id="racingEventSessionList">
+                <div class="alert alert-danger mb-0">
+                    Could not find any event session information on this page!
+                </div>
+                <!-- dynamically filled -->
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            3. Submit the data
+        </div>
+        <div class="card-body">
+            <div id="uploadProgress" class="progress d-none mb-3">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"></div>
+            </div>
+
+            <button id="addRacingEventSessions" class="btn btn-danger mb-3" disabled>
+                Upload racing event sessions to More Cars
+            </button>
+
+            <div id="errorBox" class="alert alert-danger">
+                Please select a racing series and an event to activate the upload button.
+            </div>
+
+            <hr>
+
+            🔒 Access token
+            <p>
+                In order to interact with the »More Cars« database you need permission first.
+                <br><br>
+                1. Join More Cars <a href="https://more-cars.net/join">more-cars.net/join</a>
+                <br>
+                2. Go to the garage <a href="https://more-cars.net/home">more-cars.net/home</a>
+                <br>
+                3. Create an access token
+                <br>
+                4. Copy the access token
+                <br>
+                5. Paste it here and save
+            </p>
+            <div class="form-group">
+                <input id="accessTokenInput" placeholder="Your Access Token" class="form-control">
+            </div>
+            <button id="saveAccessToken" class="btn btn-warning">
+                Save Access Token
+            </button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
