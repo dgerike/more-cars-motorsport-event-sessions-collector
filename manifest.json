@@ -10,7 +10,7 @@
     {
       "matches": [
         "https://www.wrc.com/*",
-        "https://more-cars.net.test/api/v1/*"
+        "https://more-cars.net/api/v1/*"
       ],
       "js": [
         "content.js",
@@ -20,7 +20,7 @@
   ],
   "host_permissions": [
     "https://www.wrc.com/*",
-    "https://more-cars.net.test/api/v1/*"
+    "https://more-cars.net/api/v1/*"
   ],
   "action": {
     "default_popup": "popup.html"
