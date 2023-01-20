@@ -14,7 +14,8 @@
       ],
       "js": [
         "content.js",
-        "libs/jquery_v3.4.1.js"
+        "libs/jquery_v3.4.1.js",
+        "libs/moment.min.js"
       ]
     }
   ],

@@ -1,13 +1,27 @@
 function extractDataPoint(baseSelector, rowNumber, fieldName, selectors) {
-    if (!selectors[fieldName]) {
-        return null
+    let datapoint = null;
+
+    if (typeof selectors[fieldName] === "string") {
+        datapoint = $(baseSelector)
+            .eq(rowNumber)
+            .find(selectors[fieldName])
+            .text()
+            .trim()
     }
 
-    let datapoint = $(baseSelector)
-        .eq(rowNumber)
-        .find(selectors[fieldName])
-        .text()
-        .trim()
+    if (typeof selectors[fieldName] === "object") {
+        let selected = $(baseSelector)
+            .eq(rowNumber)
+
+        for (let i = 1; i <= selectors[fieldName]['climb_up_dom_n_levels']; i++) {
+            selected = selected.parent()
+        }
+
+        datapoint = selected
+            .find(selectors[fieldName]['selector'])
+            .text()
+            .trim()
+    }
 
     return datapoint
 }
@@ -33,11 +47,14 @@ function extractSessionForPosition(pos, selectors) {
     const stage = extractDataPoint(baseSelector, rowNumber, 'stage', selectors)
     const name = extractDataPoint(baseSelector, rowNumber, 'session_name', selectors)
     const time = extractDataPoint(baseSelector, rowNumber, 'start_time', selectors)
+    const date = extractDataPoint(baseSelector, rowNumber, 'date', selectors)
+    const formattedDate = moment(date, selectors['date']['date_format']).format("YYYY-MM-DD")
 
     return {
         "stage": stage,
         "name": name,
         "time": time,
+        "date": formattedDate,
     }
 }
 

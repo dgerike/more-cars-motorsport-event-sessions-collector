@@ -8,7 +8,11 @@ let racingSeries = [{
         "row_selector": "tbody tr",
         "stage": "td:nth-child(1)",
         "session_name": "td:nth-child(2)",
-        "date": ".table-heading",
+        "date": {
+            "climb_up_dom_n_levels": 4,
+            "selector": ".table-heading",
+            "date_format": "dddd Do MMMM",
+        },
         "start_time": "td:nth-child(4)",
     }
 }]
@@ -188,6 +192,7 @@ function uploadRacingEventSession(racingEventSession) {
     let payloadRacingEventSession = {
         "name": racingEventSession.stage + ' - ' + racingEventSession.name,
         "start_time": racingEventSession.time,
+        "start_date": racingEventSession.date,
     }
 
     let racingEventId = $($('#racingEventList option:selected')[0]).val()
