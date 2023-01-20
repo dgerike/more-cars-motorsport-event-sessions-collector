@@ -64,6 +64,11 @@ function renderEventList(events) {
     return html;
 }
 
+$('#racingEventList').change(function () {
+    $('#addRacingEventSessions').prop('disabled', false)
+    $('#errorBox').addClass('d-none')
+});
+
 window.onload = function () {
     chrome.tabs.query({
         active: true,
