@@ -1,6 +1,16 @@
 let racingSeries = [{
     "name": "WRC",
-    "more_cars_id": 311
+    "more_cars_id": 311,
+    "source": "https://www.wrc.com/",
+    "racing_series_indicator_title": "Live Timing",
+    "selectors": {
+        "table_selector": ".data-contel.full",
+        "row_selector": "tbody tr",
+        "stage": "td:nth-child(1)",
+        "session_name": "td:nth-child(2)",
+        "date": ".table-heading",
+        "start_time": "td:nth-child(4)",
+    }
 }]
 let apiBaseUrl = 'https://more-cars.net'
 
