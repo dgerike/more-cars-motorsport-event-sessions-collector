@@ -1,8 +1,8 @@
 {
-  "name": "More Cars - Motorsport Events Collector",
+  "name": "More Cars - Racing Event Sessions Collector",
   "version": "0.1.0",
-  "description": "A little helper that makes it easier to add motorsport events to the 'More Cars' database. (more-cars.net)",
-  "homepage_url": "https://github.com/dgerike/more-cars-motorsport-events-collector",
+  "description": "A little helper that makes it easier to add motorsport sessions to the 'More Cars' database. (more-cars.net)",
+  "homepage_url": "https://github.com/dgerike/more-cars-motorsport-event-sessions-collector",
   "permissions": [
     "storage"
   ],
