@@ -2,7 +2,7 @@ let racingSeries = [{
     "name": "WRC",
     "more_cars_id": 311,
     "source": "https://www.wrc.com/",
-    "racing_series_indicator_title": "Live Timing",
+    "racing_series_indicator_title": "Results",
     "selectors": {
         "table_selector": ".data-contel.full",
         "row_selector": "tbody tr",
